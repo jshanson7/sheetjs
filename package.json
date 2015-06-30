@@ -1,12 +1,12 @@
 {
   "name": "sheetjs",
+  "description": "Easily create and manipulate CSSStyleDeclarations with javascript.",
+  "keywords": ["CSSStyleDeclaration", "css", "javascript", "style", "sheetjs"],
   "version": "1.0.0",
-  "description": "",
-  "main": "gulpfile.js",
+  "main": "./src/sheet.js",
   "dependencies": {},
   "devDependencies": {
     "browserify": "^10.2.1",
-    "event-stream": "^3.3.1",
     "gulp": "^3.8.11",
     "gulp-if": "^1.2.5",
     "gulp-rename": "^1.2.2",
@@ -21,8 +21,10 @@
     "yargs": "^3.9.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp bundle --production",
+    "dev": "gulp"
   },
   "author": "Jeff Hanson",
-  "license": "ISC"
+  "license": "MIT"
 }

@@ -3,9 +3,8 @@
 Easily create and manipulate `CSSStyleDeclarations` with javascript.  Good for when you have multiple elements with a dynamic class, and you want a more efficient way to style them than with the `style` attribute or jQuery's `.css()`.
 
 ```javascript
-var sheetjs = require('sheetjs');
-var mySelector = '#content .my-dynamic-class';
-var styleRef = sheetjs.createStyle(mySelector);
+var s = require('sheetjs').createStyle;
+var styleRef = s('#content .my-dynamic-class');
 
 styleRef.backgroundColor = 'green';
 

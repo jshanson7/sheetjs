@@ -1,5 +1,5 @@
 'use strict';
-;(function (window, undefined) {
+;(function(window, undefined) {
   
   function Sheetjs() {
     // allow omission of 'new'
@@ -12,11 +12,17 @@
     this._styleSheet = null;
     this._sheet = null;
     this._rules = null;
+    
+    // bind context of public methods
+    var self = this;
+    ['createStyle', 'deleteStyle', 'getStyle', 'disable', 'enable'].forEach(function(method) {
+      self[method] = self[method].bind(self);
+    });
   }
 
   Sheetjs.prototype = {
     // returns a CSSStyleDeclaration object that can be maniuplated with javascript
-    createStyle: function (selector) {
+    createStyle: function(selector) {
       var existing = this.getStyle(selector);
       if (existing) { return existing;}
 
@@ -30,7 +36,7 @@
 
       return rules.item( nextRuleIndex ).style;
     },
-    deleteStyle: function (selector) {
+    deleteStyle: function(selector) {
       var sheet = this._getSheet();
       var deleteRule = sheet.removeRule || sheet.deleteRule;
       var ruleIndex = this._getRuleIndex(selector);
@@ -39,23 +45,23 @@
         false :
         deleteRule.call(sheet, ruleIndex);
     },
-    getStyle: function (selector) {
+    getStyle: function(selector) {
       var rule = this._getRule(selector);
       return rule ? rule.style : undefined;
     },
-    disable: function () {
+    disable: function() {
       this._getSheet().disabled = true; return this;
     },
-    enable: function () {
+    enable: function() {
       this._getSheet().disabled = false; return this;
     },
-    _getRuleIndex: function (selector) {
+    _getRuleIndex: function(selector) {
       var rules = this._getRules();
       var rule = this._getRule(selector);
 
       return Array.prototype.indexOf.call(rules, rule);
     },
-    _getRule: function (selector) {
+    _getRule: function(selector) {
       var rules = this._getRules();
       var i = 0;
       var il = rules.length;
@@ -69,18 +75,18 @@
       return undefined;
     },
     _getSheet: function() {
-      return this._sheet || (function () {
+      return this._sheet || (function() {
         return this._sheet = this._getStylesheet().sheet;
       }).call(this);
     },
     _getRules: function() {
-      return this._rules || (function () {
+      return this._rules || (function() {
         var sheet = this._getSheet();
         return this._rules = sheet.cssRules || sheet.rules;  
       }).call(this);
     },
-    _getStylesheet: function () {
-      return this._styleSheet || (function () {
+    _getStylesheet: function() {
+      return this._styleSheet || (function() {
         var style = document.createElement('style');
         var head = document.head || document.getElementsByTagName('head')[0];
         style.type = 'text/css';
