@@ -6,7 +6,7 @@ Easily create and manipulate `CSSStyleDeclarations` with javascript.  Good for w
 var s = require('sheetjs').createStyle;
 var styleRef = s('#content .my-dynamic-class');
 
-// changes background color for all current and future matching elements in the DOM
+// changes background color for all current and future matching elements
 styleRef.backgroundColor = 'green';
 
 ```
