@@ -17,12 +17,10 @@ styleRef.backgroundColor = 'green';
 npm install
 npm install -g gulp
 gulp bundle --produciton
-
 ```
 
 ## Development
 
 ```
 gulp watch
-
 ```
