@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
 var gutil = require('gulp-util');
 var rename = require('gulp-rename');
