@@ -10,3 +10,19 @@ var styleRef = sheetjs.createStyle(mySelector);
 styleRef.backgroundColor = 'green';
 
 ```
+
+## Installation
+
+```
+npm install
+npm install -g gulp
+gulp bundle --produciton
+
+```
+
+## Development
+
+```
+gulp watch
+
+```
