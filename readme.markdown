@@ -37,7 +37,7 @@ s('.my-el').backgroundColor = 'green';
 
 ## Demo
 
-http://codepen.io/jshanson7/pen/Jdpdga
+http://codepen.io/jshanson7/pen/Jdpdga?editors=001
 
 ## Installation
 

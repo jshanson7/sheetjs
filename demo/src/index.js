@@ -42,7 +42,6 @@ function toggleElements() {
 function toggleWithSheetjs() {
   isToggled = !isToggled;
   s('.' + demoElClass).backgroundColor = isToggled ? toggleColor2 : toggleColor1;
-  
 }
 
 function toggleWithJquery() {
