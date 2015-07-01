@@ -67,3 +67,7 @@ gulp watch
 ```
 gulp bundle --produciton
 ```
+
+### License
+
+MIT
