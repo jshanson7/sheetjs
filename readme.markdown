@@ -11,6 +11,10 @@ styleRef.backgroundColor = 'green';
 
 ```
 
+## Demo
+
+http://codepen.io/jshanson7/pen/Jdpdga
+
 ## Installation
 
 `npm install sheetjs`

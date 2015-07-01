@@ -65,6 +65,7 @@ function toggleWithJquery() {
 
 function inputChanged() {
   $('.update-settings').attr('disabled', false);
+  $('.toggle-elements').attr('disabled', true);
 }
 
 function updateSettings() {
@@ -78,6 +79,7 @@ function updateSettings() {
   s('.' + demoElClass).backgroundColor = toggleColor1;
   
   $('.update-settings').attr('disabled', true);
+  $('.toggle-elements').attr('disabled', false);
   $('.toggle-status').html('');
   updateDemoElStyles();
   updateDemoEls();
@@ -181,15 +183,9 @@ function renderDemo() {
           on: {
             click: updateSettings
           }
-        })
-      ]
-    }),
-    $('<hr/>'),
-    $('<div/>', {
-      class: 'button-bank',
-      html: [
+        }),
         $('<button/>', {
-          class: 'toggle-sheetjs',
+          class: 'toggle-elements',
           html: 'Toggle',
           on: {
             click: toggleElements
@@ -201,6 +197,7 @@ function renderDemo() {
         })
       ]
     }),
+    $('<hr/>'),
     $('<div/>', {
       class: 'demo-el-container',
       html: renderDemoEls()
