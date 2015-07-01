@@ -1,6 +1,6 @@
 # SheetJS
 
-Easily create and manipulate `CSSStyleDeclaration`s with javascript:
+Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
 ```javascript
 var s = require('sheetjs').createStyle;
