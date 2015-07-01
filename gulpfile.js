@@ -22,16 +22,19 @@ var bundleConfigs = [
   {
     'entries': ['./src/sheet.js'],
     'dist': './dist',
-    'file': 'bundle.js'
+    'file': 'sheet.js',
+    'browserify': false
   },
   {
     'entries': ['./demo/src/index.js'],
     'dist': './demo/dist',
-    'file': 'bundle.js'
+    'file': 'index.js',
+    'browserify': true
   }
 ];
 
 var bundlers = bundleConfigs.map(function (bundleConfig) {
+  var useBrowserify = bundleConfig.browserify;
   var b = browserify(_.assign({}, watchify.args, {
     entries: bundleConfig.entries,
     debug: true
@@ -39,17 +42,24 @@ var bundlers = bundleConfigs.map(function (bundleConfig) {
   var watchifyBundler = watchify(b);
   return {
     watch: function () {
-      return watchifyBundler
-        .on('update', bundleAll)
-        .on('log', gutil.log)
-        .bundle();
+      return useBrowserify ? 
+        watchifyBundler
+          .on('update', bundleAll)
+          .on('log', gutil.log)
+          .bundle() :
+        gulp
+          .watch(bundleConfig.entries, { interval: 500 }, bundleAll);
     },
     bundle: function () {
-      return watchifyBundler
-        .bundle()
-        .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-        .pipe(source(bundleConfig.file))
-        .pipe(buffer())
+      return (
+        useBrowserify ?
+          watchifyBundler
+            .bundle()
+            .pipe(source(bundleConfig.file))
+            .pipe(buffer()) :
+          gulp
+            .src(bundleConfig.entries)
+        )
         .pipe(gulp.dest(bundleConfig.dist))
         .pipe(gulpif(isProduction, uglify()))
         .pipe(gulpif(isProduction, rename({suffix: '.min'})))
@@ -62,7 +72,5 @@ function bundleAll() {
   return mergeStream.apply(gulp, _.invoke(bundlers, 'bundle'));
 }
 
-function watchAll() {
-  return mergeStream.apply(gulp, _.invoke(bundlers, 'watch'));
-}
+function watchAll() { _.invoke(bundlers, 'watch'); }
 

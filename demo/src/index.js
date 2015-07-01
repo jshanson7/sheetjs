@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('lodash');
-var $ = require('../../node_modules/jquery/dist/jquery.js');
-var s = require('../../src/sheet.js').createStyle;
+var $ = require('../../node_modules/jquery/dist/jquery.min.js');
+var s = require('../../dist/sheet.min.js').createStyle;
 
 // state
 var demoElClass = 'demo-el';
