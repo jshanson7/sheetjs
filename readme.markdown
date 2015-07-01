@@ -25,7 +25,7 @@ Clone repo, cd into it.
 ```
 npm install
 npm install -g gulp
-gulp bunlde
+gulp bundle
 ```
 
 ### Development
