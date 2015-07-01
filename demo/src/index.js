@@ -17,8 +17,7 @@ init();
 function init() {
   s('html, body').margin = '0px';
   s('.button-bank').margin = '20px'
-  s('.button-bank span, .button-bank input, .button-bank button, .button-bank select')
-    .margin = '0 14px 14px 0';
+  s('.button-bank > *').margin = '0 14px 14px 0';
   s('.demo-el-container').margin = '20px';
 
   updateDemoElStyles();
