@@ -38,7 +38,9 @@ http://codepen.io/jshanson7/pen/Jdpdga?editors=001
 
 ## Installation
 
-`npm install sheetjs`
+```
+npm install sheetjs
+```
 
 Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `require('sheetjs')` with Browserify.  If a module environment is not detected, `sheetjs` will be attached to `window`.
 
