@@ -7,7 +7,6 @@ var s = require('sheetjs').createStyle;
 
 // changes background color for all current and future matching elements
 s('#content .my-selector').backgroundColor = 'green';
-
 ```
 Good for when you have multple elements that need dynamic styling.
 
@@ -22,7 +21,6 @@ Using jQuery:
 // changes background color for all current matching elements (new elements will not be green)
 $('.my-el').css('background-color', 'green')
 // took ~10ms
-
 ```
 
 Using SheetJS:
@@ -32,7 +30,6 @@ Using SheetJS:
 // changes background color for all current AND future matching elements
 s('.my-el').backgroundColor = 'green';
 // took <1ms
-
 ```
 
 ## Demo
@@ -53,7 +50,6 @@ Clone repo, cd into it.
 ```
 npm install
 npm install -g gulp
-gulp bundle
 ```
 
 ### Development
