@@ -13,7 +13,7 @@ styleRef.backgroundColor = 'green';
 
 ## Installation
 
-Load either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `require` them with Browserify.  If a module environment is not detected, `sheetjs` will be attached to `window`.
+Load either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `require('sheetjs')` with Browserify.  If a module environment is not detected, `sheetjs` will be attached to `window`.
 
 
 ## Contributing
@@ -24,7 +24,7 @@ Clone repo, cd into it.
 npm install
 npm install -g gulp
 gulp bunlde
-'''
+```
 
 ### Development
 
