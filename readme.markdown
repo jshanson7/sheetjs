@@ -11,16 +11,24 @@ styleRef.backgroundColor = 'green';
 
 ```
 
-## Installation
+## Contributing
+
+Clone repo, cd into it.
 
 ```
 npm install
 npm install -g gulp
-gulp bundle --produciton
-```
+gulp bunlde
+'''
 
-## Development
+### Development
 
 ```
 gulp watch
+'''
+
+### Production
+
+'''
+gulp bundle --produciton
 ```
