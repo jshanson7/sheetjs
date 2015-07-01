@@ -17,7 +17,6 @@ Imagine a web page with 1000 elements with class `my-el`, and you want to change
 Using jQuery:
 
 ```javascript
-
 // changes background color for all current matching elements (new elements will not be green)
 $('.my-el').css('background-color', 'green')
 // took ~10ms
@@ -26,7 +25,6 @@ $('.my-el').css('background-color', 'green')
 Using SheetJS:
 
 ```javascript
-
 // changes background color for all current AND future matching elements
 s('.my-el').backgroundColor = 'green';
 // took <1ms
