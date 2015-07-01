@@ -1,6 +1,7 @@
 {
   "name": "sheetjs",
   "description": "Easily create and manipulate CSSStyleDeclarations with javascript.",
+  "version": "1.0.5",
   "keywords": [
     "CSSStyleDeclaration",
     "css",
@@ -8,8 +9,11 @@
     "style",
     "sheetjs"
   ],
-  "version": "1.0.4",
   "main": "./src/sheet.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jshanson7/sheetjs"
+  },
   "dependencies": {},
   "devDependencies": {
     "browserify": "^10.2.1",
