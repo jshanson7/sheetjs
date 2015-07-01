@@ -15,22 +15,11 @@ var selectedLibrary = 'SheetJS';
 init();
 
 function init() {
-  var bodyStyles = s('body');
-  var buttonBankStyles = s('.button-bank');
-  var buttonBankItemStyles = s(
-    [
-      '.button-bank span',
-      '.button-bank input',
-      '.button-bank button',
-      '.button-bank select',
-    ].join(', ')
-  );
-  var demoElContainerStyles = s('.demo-el-container');
-
-  bodyStyles.margin = '0px';
-  buttonBankStyles.margin = '20px';
-  buttonBankItemStyles.margin = '0 14px 14px 0';
-  demoElContainerStyles.margin = '20px';
+  s('html, body').margin = '0px';
+  s('.button-bank').margin = '20px'
+  s('.button-bank span, .button-bank input, .button-bank button, .button-bank select')
+    .margin = '0 14px 14px 0';
+  s('.demo-el-container').margin = '20px';
 
   updateDemoElStyles();
   $('body').html(renderDemo());
@@ -52,15 +41,13 @@ function toggleElements() {
 
 function toggleWithSheetjs() {
   isToggled = !isToggled;
-  var demoElStyles = s('.' + demoElClass);
-  demoElStyles.backgroundColor = isToggled ? toggleColor2 : toggleColor1;
+  s('.' + demoElClass).backgroundColor = isToggled ? toggleColor2 : toggleColor1;
   
 }
 
 function toggleWithJquery() {
   isToggled = !isToggled;
-  var $demoEls = $('.' + demoElClass);
-  $demoEls.css('background-color', isToggled ? toggleColor2 : toggleColor1);
+  $('.' + demoElClass).css('background-color', isToggled ? toggleColor2 : toggleColor1);
 }
 
 function inputChanged() {

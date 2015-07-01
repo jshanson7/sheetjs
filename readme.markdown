@@ -1,13 +1,36 @@
 # SheetJS
 
-Easily create and manipulate `CSSStyleDeclarations` with javascript.  Good for when you have multiple elements with a dynamic class, and you want a more efficient way to style them than with the `style` attribute or jQuery's `.css()`.
+Easily create and manipulate `CSSStyleDeclarations` with javascript.  Good for when you have multple elements that need dynamic styling.
 
 ```javascript
 var s = require('sheetjs').createStyle;
-var styleRef = s('#content .my-dynamic-class');
 
 // changes background color for all current and future matching elements
-styleRef.backgroundColor = 'green';
+s('#content .my-selector').backgroundColor = 'green';
+
+```
+
+## jQuery `.css()` vs SheetJS
+
+Imagine a web page with 1000 elements with class `my-el`, and you want to change their `background-color` to `green`.
+
+Using jQuery:
+
+```javascript
+
+// changes background color for all current matching elements (new elements will not be green)
+$('.my-el').css('background-color', 'green')
+// took ~10ms
+
+```
+
+Using SheetJS:
+
+```javascript
+
+// changes background color for all current AND future matching elements
+s('.my-el').backgroundColor = 'green';
+// took <1ms
 
 ```
 
