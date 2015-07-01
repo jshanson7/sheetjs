@@ -1,8 +1,6 @@
 # SheetJS
 
-Easily create and manipulate `CSSStyleDeclarations` with javascript.
-
-Good for when you have multple elements that need dynamic styling:
+Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
 ```javascript
 var s = require('sheetjs').createStyle;
@@ -11,6 +9,7 @@ var s = require('sheetjs').createStyle;
 s('#content .my-selector').backgroundColor = 'green';
 
 ```
+Good for when you have multple elements that need dynamic styling.
 
 ## jQuery `.css()` vs SheetJS
 
