@@ -13,7 +13,9 @@ styleRef.backgroundColor = 'green';
 
 ## Installation
 
-Load either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `require('sheetjs')` with Browserify.  If a module environment is not detected, `sheetjs` will be attached to `window`.
+`npm install sheetjs`
+
+Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `require('sheetjs')` with Browserify.  If a module environment is not detected, `sheetjs` will be attached to `window`.
 
 
 ## Contributing
