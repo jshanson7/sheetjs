@@ -8,7 +8,7 @@
     "style",
     "sheetjs"
   ],
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./src/sheet.js",
   "dependencies": {},
   "devDependencies": {
