@@ -49,21 +49,26 @@ Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `r
 ```javascript
 var sheetjs = require('sheetjs');
 
-// createStyle - get CSSStyleDeclaration for selector (or create if it doesn't exist)
+// createStyle - get CSSStyleDeclaration for selector (or create if it 
+// doesn't exist)
 var styleDeclaration = sheetjs.createStyle('.my-el');
 styleDeclaration.backgroundColor = 'green';
 
-// deleteStyle - delete CSSStyleDeclaration for selector (removes all sheetjs rules for selector)
+// deleteStyle - delete CSSStyleDeclaration for selector (removes all sheetjs 
+// rules for selector)
 sheetjs.deleteStyle('.my-el'); // 'backgroundColor' is no longer green
 
-// getStyle - get CSSStyleDeclaration for selector (returns undefined if it doesn't exist)
+// getStyle - get CSSStyleDeclaration for selector (returns undefined if it 
+// doesn't exist)
 var styleDeclaration2 = sheetjs.getStyle('.new-selector');
 styleDeclaration2 === undefined; // true
 
-// disable - temporarily disables the stylesheet associated with sheetjs (and all generated styles)
+// disable - temporarily disables the stylesheet associated with sheetjs (and 
+// all generated styles)
 sheetjs.disable();
 
-// enable - enables the stylesheet associated with sheetjs (and all generated styles)
+// enable - enables the stylesheet associated with sheetjs (and all 
+// generated styles)
 sheetjs.enable();
 ```
 
