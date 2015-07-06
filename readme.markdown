@@ -18,7 +18,7 @@ Using jQuery:
 
 ```javascript
 // changes background color for all current matching elements
-$('.my-el').css('background-color', 'green')
+$('.my-el').css('background-color', 'green');
 // took ~10ms
 // new elements will not be green
 ```
