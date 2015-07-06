@@ -33,7 +33,7 @@ var bundleConfigs = [
   }
 ];
 
-var bundlers = bundleConfigs.map(function (bundleConfig) {
+var bundlers = bundleConfigs.map(function(bundleConfig) {
   var useBrowserify = bundleConfig.browserify;
   var b = browserify(_.assign({}, watchify.args, {
     entries: bundleConfig.entries,
@@ -41,7 +41,7 @@ var bundlers = bundleConfigs.map(function (bundleConfig) {
   }));
   var watchifyBundler = watchify(b);
   return {
-    watch: function () {
+    watch: function() {
       return useBrowserify ? 
         watchifyBundler
           .on('update', bundleAll)
@@ -50,7 +50,7 @@ var bundlers = bundleConfigs.map(function (bundleConfig) {
         gulp
           .watch(bundleConfig.entries, { interval: 500 }, bundleAll);
     },
-    bundle: function () {
+    bundle: function() {
       return (
         useBrowserify ?
           watchifyBundler

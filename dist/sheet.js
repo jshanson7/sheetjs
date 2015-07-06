@@ -4,10 +4,6 @@
   function Sheetjs() {
     // allow omission of 'new'
     if (!(this instanceof Sheetjs)) { return new Sheetjs(); }
-    // one of these globally
-    if (Sheetjs.instance) { return Sheetjs.instance; }
-
-    Sheetjs.instance = this;
 
     this._styleSheet = null;
     this._sheet = null;
@@ -21,7 +17,7 @@
   }
 
   Sheetjs.prototype = {
-    // returns a CSSStyleDeclaration object that can be maniuplated with javascript
+    // returns a CSSStyleDeclaration
     createStyle: function(selector) {
       var existing = this.getStyle(selector);
       if (existing) { return existing;}
@@ -32,9 +28,9 @@
       var dummyRule = selector + ' { }';
 
       // insert dummy rule to generate a CSSStyleDeclaration object as a byproduct
-      sheet.insertRule( dummyRule, nextRuleIndex );
+      sheet.insertRule(dummyRule, nextRuleIndex);
 
-      return rules.item( nextRuleIndex ).style;
+      return rules.item(nextRuleIndex).style;
     },
     deleteStyle: function(selector) {
       var sheet = this._getSheet();
