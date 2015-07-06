@@ -53,11 +53,11 @@ var sheetjs = require('sheetjs');
 var styleDeclaration = sheetjs.createStyle('.my-el');
 styleDeclaration.backgroundColor = 'green';
 
-// deleteStyle - delete CSSStyleDeclaration for selector (removes sheetjs styles for selector)
+// deleteStyle - delete CSSStyleDeclaration for selector
 sheetjs.deleteStyle('.my-el'); // 'backgroundColor' is no longer green
 
-// getStyle - get CSSStyleDeclaration for selector (returns undefined if it doesn't exist)
-var styleDeclaration2 = sheetjs.getStyle('.new-selector');
+// getStyle - get existing CSSStyleDeclaration for selector
+var styleDeclaration2 = sheetjs.getStyle('.doesnt-exist');
 styleDeclaration2 === undefined; // true
 
 // disable - disables the stylesheet associated with sheetjs (and all generated styles)
