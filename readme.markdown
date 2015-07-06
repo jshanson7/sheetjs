@@ -10,7 +10,7 @@ s('#content .my-selector').backgroundColor = 'green';
 ```
 Good for when you have a dynamic number of elements that need dynamic styling.
 
-## jQuery `.css()` vs SheetJS
+## jQuery .css() vs SheetJS
 
 Imagine a web page with 1000 elements with class `my-el`, and you want to change their `background-color` to `green`.
 
