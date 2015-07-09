@@ -3,7 +3,7 @@
 Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
 ```javascript
-var s = require('sheetjs').createStyle;
+var s = sheetjs.createStyle;
 
 // changes background color for all current and future matching elements
 s('#content .my-selector').backgroundColor = 'green';
@@ -48,6 +48,8 @@ Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `r
 
 ```javascript
 var sheetjs = require('sheetjs');
+// or
+var sheetjs = window.sheetjs;
 
 // createStyle - get CSSStyleDeclaration for selector (or create if it doesn't exist)
 var styleDeclaration = sheetjs.createStyle('.my-el');
