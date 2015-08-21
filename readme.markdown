@@ -87,7 +87,7 @@ gulp watch
 ### Production
 
 ```
-gulp bundle --produciton
+gulp bundle --production
 ```
 
 ### License
