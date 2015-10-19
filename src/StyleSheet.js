@@ -62,10 +62,10 @@ export default class StyleSheet {
     const sheet = this._getSheet();
     const rules = this._getRules();
     const nextRuleIndex = rules.length;
-    const dummyRule = selector + ' { }';
+    const ruleText = selector + ' { }';
 
-    // insert dummy rule to generate a CSSStyleDeclaration object as a byproduct
-    sheet.insertRule(dummyRule, nextRuleIndex);
+    // insert ruleText to generate a CSSStyleDeclaration object as a byproduct
+    sheet.insertRule(ruleText, nextRuleIndex);
 
     return rules.item(nextRuleIndex).style;
   }

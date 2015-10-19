@@ -146,10 +146,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var sheet = this._getSheet();
 	      var rules = this._getRules();
 	      var nextRuleIndex = rules.length;
-	      var dummyRule = selector + ' { }';
+	      var ruleText = selector + ' { }';
 
-	      // insert dummy rule to generate a CSSStyleDeclaration object as a byproduct
-	      sheet.insertRule(dummyRule, nextRuleIndex);
+	      // insert ruleText to generate a CSSStyleDeclaration object as a byproduct
+	      sheet.insertRule(ruleText, nextRuleIndex);
 
 	      return rules.item(nextRuleIndex).style;
 	    }
