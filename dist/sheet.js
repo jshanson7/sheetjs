@@ -108,7 +108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // bind context of public methods
 	    var self = this;
-	    ['stylesForSelector', 'createStylesForSelector', 'getStylesForSelector', 'deleteStylesForSelector', 'disable', 'enable'].forEach(function (method) {
+	    ['setStylesForSelectors', 'setStylesForSelector', 'stylesForSelector', 'createStylesForSelector', 'getStylesForSelector', 'deleteStylesForSelector', 'disable', 'enable'].forEach(function (method) {
 	      return self[method] = self[method].bind(self);
 	    });
 

@@ -22,6 +22,8 @@ export default class StyleSheet {
     // bind context of public methods
     const self = this;
     [
+      'setStylesForSelectors',
+      'setStylesForSelector',
       'stylesForSelector',
       'createStylesForSelector',
       'getStylesForSelector',
