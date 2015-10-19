@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["sheet"] = factory();
+		exports["StyleSheet"] = factory();
 	else
-		root["sheet"] = factory();
+		root["StyleSheet"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(5);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
@@ -424,25 +424,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return isArgs;
 	};
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _StyleSheet = __webpack_require__(1);
-
-	var _StyleSheet2 = _interopRequireDefault(_StyleSheet);
-
-	exports['default'] = { StyleSheet: _StyleSheet2['default'] };
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ])

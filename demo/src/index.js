@@ -1,7 +1,9 @@
-'use strict';
-var _ = require('lodash');
-var $ = require('../../node_modules/jquery/dist/jquery.min.js');
-var s = require('../../dist/sheet.min.js').createStyle;
+import { extend, map, range, times } from 'lodash';
+import $ from 'jquery';
+import StyleSheet from '../../dist/StyleSheet.js';
+
+window.sheetjs = { StyleSheet };
+const s = (new StyleSheet()).stylesForSelector;
 
 // state
 var demoElClass = 'demo-el';
@@ -30,7 +32,7 @@ function toggleElements() {
   var timestamp = Date.now();
   var toggler = selectedLibrary === 'SheetJS' ? toggleWithSheetjs : toggleWithJquery;
   
-  _.times(numberOfTimesToToggle, toggler);
+  times(numberOfTimesToToggle, toggler);
   $toggleStatus.html(
     '<span>' + numberOfTimesToToggle + ' toggles with <em>' +
     selectedLibrary + '</em>: <strong>' + (Date.now() - timestamp) +
@@ -72,7 +74,7 @@ function updateSettings() {
 
 function updateDemoElStyles() {
   var demoElStyles = s('.' + demoElClass);
-  _.extend(demoElStyles, {
+  extend(demoElStyles, {
     'float': 'left',
     'margin': '2px',
     'border': '1px solid black',
@@ -89,7 +91,7 @@ function updateDemoEls() {
 }
 
 function renderDemoEls() {
-  return _.map(_.range(numberOfEls), function (i) {
+  return map(range(numberOfEls), function (i) {
     return $('<div/>', { 
       class: demoElClass
     });
