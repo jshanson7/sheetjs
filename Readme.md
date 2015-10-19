@@ -3,7 +3,8 @@
 Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
 ```javascript
-var s = sheetjs.createStyle;
+var styleSheet = new sheetjs.StyleSheet();
+var s = styleSheet.stylesForSelector;
 
 // changes background color for all current and future matching elements
 s('#content .my-selector').backgroundColor = 'green';
@@ -47,26 +48,29 @@ Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `r
 ## API
 
 ```javascript
-var sheetjs = require('sheetjs');
+var StyleSheet = require('sheetjs').StyleSheet;
 // or
-var sheetjs = window.sheetjs;
+var StyleSheet = window.sheetjs.StyleSheet;
 
-// createStyle - get CSSStyleDeclaration for selector (or create if it doesn't exist)
-var styleDeclaration = sheetjs.createStyle('.my-el');
+var styleSheet = new StyleSheet();
+var s = styleSheet.stylesForSelector;
+
+// stylesForSelector - get CSSStyleDeclaration for selector (or create if it doesn't exist)
+var styleDeclaration = styleSheet.stylesForSelector('.my-el');
 styleDeclaration.backgroundColor = 'green';
 
-// deleteStyle - delete CSSStyleDeclaration for selector
-sheetjs.deleteStyle('.my-el'); // 'backgroundColor' is no longer green
+// deleteStylesForSelector - delete CSSStyleDeclaration for selector
+styleSheet.deleteStylesForSelector('.my-el'); // 'backgroundColor' is no longer green
 
-// getStyle - get existing CSSStyleDeclaration for selector
-var styleDeclaration2 = sheetjs.getStyle('.doesnt-exist');
+// getStylesForSelector - get existing CSSStyleDeclaration for selector
+var styleDeclaration2 = styleSheet.getStylesForSelector('.doesnt-exist');
 styleDeclaration2 === undefined; // true
 
-// disable - disables the stylesheet associated with sheetjs (and all generated styles)
-sheetjs.disable();
+// disable - disables the stylesheet (and all generated styles)
+styleSheet.disable();
 
-// enable - enables the stylesheet associated with sheetjs (and all generated styles)
-sheetjs.enable();
+// enable - enables the stylesheet (and all generated styles)
+styleSheet.enable();
 ```
 
 ## Contributing
