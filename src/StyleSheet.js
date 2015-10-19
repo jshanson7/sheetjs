@@ -1,6 +1,3 @@
-import assign from 'object-assign';
-import keys from 'object-keys';
-
 //  // CSSStyleSheet:
 //  {
 //    // CSSRuleList
@@ -43,14 +40,14 @@ export default class StyleSheet {
   _rules = null
 
   setStylesForSelectors(stylesBySelector) {
-    keys(stylesBySelector).forEach(selector =>
+    Object.keys(stylesBySelector).forEach(selector =>
       this.setStylesForSelector(selector, stylesBySelector[selector])
     );
     return this;
   }
 
   setStylesForSelector(selector, styles) {
-    assign(this.stylesForSelector(selector), styles);
+    Object.assign(this.stylesForSelector(selector), styles);
     return this;
   }
 

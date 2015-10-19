@@ -1,7 +1,7 @@
 import assert from 'assert';
 import StyleSheet from '../StyleSheet';
 
-console.log('StyleSheet', StyleSheet);
+assert(StyleSheet === StyleSheet);
 
 describe('sheetjs', () => {
   describe('#createStyle()', () =>
@@ -10,3 +10,4 @@ describe('sheetjs', () => {
     )
   );
 });
+

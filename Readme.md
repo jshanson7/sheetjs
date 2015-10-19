@@ -3,8 +3,9 @@
 Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
 ```javascript
-var styleSheet = new sheetjs.StyleSheet();
-var s = styleSheet.stylesForSelector;
+import { StyleSheet } from 'sheetjs';
+const styleSheet = new StyleSheet();
+const s = styleSheet.stylesForSelector;
 
 // changes background color for all current and future matching elements
 s('#content .my-selector').backgroundColor = 'green';
@@ -43,27 +44,27 @@ s('.my-el').backgroundColor = 'green';
 npm install sheetjs
 ```
 
-Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `require('sheetjs')` with Browserify.  If a module environment is not detected, `sheetjs` will be attached to `window`.
+Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `import 'sheetjs'`.  If a module environment is not detected, `sheetjs` will be exported to `window.sheetjs`.
 
 ## API
 
 ```javascript
-var StyleSheet = require('sheetjs').StyleSheet;
+import StyleSheet from 'sheetjs/StyleSheet';
 // or
-var StyleSheet = window.sheetjs.StyleSheet;
+const StyleSheet = window.sheetjs.StyleSheet;
 
-var styleSheet = new StyleSheet();
-var s = styleSheet.stylesForSelector;
+const styleSheet = new StyleSheet();
+const s = styleSheet.stylesForSelector;
 
 // stylesForSelector - get CSSStyleDeclaration for selector (or create if it doesn't exist)
-var styleDeclaration = styleSheet.stylesForSelector('.my-el');
+const styleDeclaration = styleSheet.stylesForSelector('.my-el');
 styleDeclaration.backgroundColor = 'green';
 
 // deleteStylesForSelector - delete CSSStyleDeclaration for selector
 styleSheet.deleteStylesForSelector('.my-el'); // 'backgroundColor' is no longer green
 
 // getStylesForSelector - get existing CSSStyleDeclaration for selector
-var styleDeclaration2 = styleSheet.getStylesForSelector('.doesnt-exist');
+const styleDeclaration2 = styleSheet.getStylesForSelector('.doesnt-exist');
 styleDeclaration2 === undefined; // true
 
 // disable - disables the stylesheet (and all generated styles)
@@ -78,20 +79,19 @@ styleSheet.enable();
 Clone repo, cd into it.
 
 ```
-npm install
-npm install -g gulp
+npm install && npm start
 ```
 
-### Development
+### Building
 
 ```
-gulp watch
+npm run build
 ```
 
-### Production
+### Testing
 
 ```
-gulp bundle --production
+npm test
 ```
 
 ### License

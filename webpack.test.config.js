@@ -1,13 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: 'mocha!./test/test',
+  entry: './test/test.js',
   output: {
     path: path.join(__dirname, 'test'),
     filename: 'test.compiled.js'
-  },
-  resolve: {
-    extensions: ['.js']
   },
   stats: { colors: true },
   module: {

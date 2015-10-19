@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    sheet: ['./src/sheetjs'],
+    sheetjs: ['./src/sheetjs'],
     StyleSheet: ['./src/StyleSheet']
   },
   output: {
@@ -10,9 +10,6 @@ module.exports = {
     filename: '[name].js',
     library: ['[name]'],
     libraryTarget: 'umd'
-  },
-  resolve: {
-    extensions: ['.js']
   },
   stats: { colors: true },
   module: {

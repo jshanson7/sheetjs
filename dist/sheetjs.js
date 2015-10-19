@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["StyleSheet"] = factory();
+		exports["sheetjs"] = factory();
 	else
-		root["StyleSheet"] = factory();
+		root["sheetjs"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(46);
 
 
 /***/ },
@@ -1088,6 +1088,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	module.exports = true;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _interopRequireDefault = __webpack_require__(47)['default'];
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _StyleSheet = __webpack_require__(1);
+
+	var _StyleSheet2 = _interopRequireDefault(_StyleSheet);
+
+	exports['default'] = { StyleSheet: _StyleSheet2['default'] };
+	module.exports = exports['default'];
+
+/***/ },
+/* 47 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports["default"] = function (obj) {
+	  return obj && obj.__esModule ? obj : {
+	    "default": obj
+	  };
+	};
+
+	exports.__esModule = true;
 
 /***/ }
 /******/ ])

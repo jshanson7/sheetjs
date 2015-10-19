@@ -1,6 +1,6 @@
 import { extend, map, range, times } from 'lodash';
 import $ from 'jquery';
-import StyleSheet from '../../dist/StyleSheet.js';
+import StyleSheet from '../../StyleSheet';
 
 window.sheetjs = { StyleSheet };
 const s = (new StyleSheet()).stylesForSelector;
