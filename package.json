@@ -1,7 +1,7 @@
 {
   "name": "sheetjs",
   "description": "Easily create and manipulate CSSStyleDeclarations with javascript.",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "keywords": [
     "CSSStyleDeclaration",
     "css",
@@ -37,7 +37,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "node_modules/.bin/parallelshell 'npm run build-watch' 'npm run test-watch'",
-    "test": "npm run lint && npm run test-browser && npm run test-node",
+    "test": "npm run lint && npm run test-node",
     "test-watch": "node_modules/.bin/parallelshell 'npm run lint-watch' 'npm run test-node-watch'",
     "test-browser": "open test/test.html",
     "test-node": "node_modules/.bin/mocha test/test",
