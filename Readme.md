@@ -4,6 +4,9 @@ Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
 ```javascript
 import { StyleSheet } from 'sheetjs';
+// or
+const { StyleSheet } = window.sheetjs;
+
 const styleSheet = new StyleSheet();
 const s = styleSheet.stylesForSelector;
 
