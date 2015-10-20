@@ -36,7 +36,7 @@ s('.my-el').backgroundColor = 'green';
 
 ## Demo
 
-[https://rawgit.com/jshanson7/sheetjs/master/demo/index.html](https://rawgit.com/jshanson7/sheetjs/master/demo/index.html)
+[http://codepen.io/jshanson7/pen/ojpbdm?editors=001](http://codepen.io/jshanson7/pen/ojpbdm?editors=001)
 
 ## Installation
 
