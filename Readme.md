@@ -46,12 +46,30 @@ npm install sheetjs
 
 Then reference either `dist/sheet.js` or `dist/sheet.min.js` in your html, or `import 'sheetjs'`.  If a module environment is not detected, `sheetjs` will be exported to `window.sheetjs`.
 
+## Advanced Usage
+
+```javascript
+import StyleSheet from 'sheetjs/StyleSheet';
+
+const styleSheet = new StyleSheet({
+  'html, body': {
+    margin: 0,
+    padding: 0
+  },
+  '.my-el': {
+    backgroundColor: 'green'
+  },
+  '.my-el:hover': {
+    backgroundColor: 'blue'
+  }
+});
+
+```
+
 ## API
 
 ```javascript
 import StyleSheet from 'sheetjs/StyleSheet';
-// or
-const StyleSheet = window.sheetjs.StyleSheet;
 
 const styleSheet = new StyleSheet();
 const s = styleSheet.stylesForSelector;
