@@ -111,7 +111,7 @@ npm run build
 [Run the tests on your browser here.](https://rawgit.com/jshanson7/sheetjs/master/test/test.html)
 
 ```
-npm test
+npm test && npm run test-browser
 ```
 
 ### License
