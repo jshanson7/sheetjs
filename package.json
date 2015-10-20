@@ -1,7 +1,7 @@
 {
   "name": "sheetjs",
   "description": "Easily create and manipulate CSSStyleDeclarations with javascript.",
-  "version": "1.0.2",
+  "version": "1.0.20",
   "keywords": [
     "CSSStyleDeclaration",
     "css",
