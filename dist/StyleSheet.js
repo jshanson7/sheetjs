@@ -156,14 +156,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getStylesForSelector',
 	    value: function getStylesForSelector(selector) {
-	      var rule = this._getRule(selector);
+	      var rule = this._getRuleForSelector(selector);
 	      return rule ? rule.style : undefined;
 	    }
 	  }, {
 	    key: 'deleteStylesForSelector',
 	    value: function deleteStylesForSelector(selector) {
 	      var deleteRule = this._getDeleteRule();
-	      var ruleIndex = this._getRuleIndex(selector);
+	      var ruleIndex = this._getRuleIndexForSelector(selector);
 
 	      return ruleIndex === -1 ? false : deleteRule(ruleIndex);
 	    }
@@ -188,26 +188,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).call(this);
 	    }
 	  }, {
-	    key: '_getRuleIndex',
-	    value: function _getRuleIndex(selector) {
-	      var rules = this._getRules();
-	      var rule = this._getRule(selector);
-
-	      return Array.prototype.indexOf.call(rules, rule);
+	    key: '_getRuleIndexForSelector',
+	    value: function _getRuleIndexForSelector(selector) {
+	      return Array.prototype.indexOf.call(this._getRules(), this._getRuleForSelector(selector));
 	    }
 	  }, {
-	    key: '_getRule',
-	    value: function _getRule(selector) {
+	    key: '_getRuleForSelector',
+	    value: function _getRuleForSelector(selector) {
 	      var rules = this._getRules();
-	      var il = rules.length;
-	      var i = 0;
+	      var i = rules.length;
 
-	      for (; i < il; i++) {
+	      while (i--) {
 	        if (rules[i].selectorText === selector) {
 	          return rules[i];
 	        }
 	      }
-
 	      return undefined;
 	    }
 	  }, {

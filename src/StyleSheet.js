@@ -48,13 +48,13 @@ export default class StyleSheet {
   }
 
   getStylesForSelector(selector) {
-    const rule = this._getRule(selector);
+    const rule = this._getRuleForSelector(selector);
     return rule ? rule.style : undefined;
   }
 
   deleteStylesForSelector(selector) {
     const deleteRule = this._getDeleteRule();
-    const ruleIndex = this._getRuleIndex(selector);
+    const ruleIndex = this._getRuleIndexForSelector(selector);
 
     return ruleIndex === -1 ?
       false :
@@ -78,24 +78,22 @@ export default class StyleSheet {
     }).call(this);
   }
 
-  _getRuleIndex(selector) {
-    const rules = this._getRules();
-    const rule = this._getRule(selector);
-
-    return Array.prototype.indexOf.call(rules, rule);
+  _getRuleIndexForSelector(selector) {
+    return Array.prototype.indexOf.call(
+      this._getRules(),
+      this._getRuleForSelector(selector)
+    );
   }
 
-  _getRule(selector) {
+  _getRuleForSelector(selector) {
     const rules = this._getRules();
-    const il = rules.length;
-    let i = 0;
+    let i = rules.length;
 
-    for (; i < il; i++) {
+    while (i--) {
       if (rules[i].selectorText === selector) {
         return rules[i];
       }
     }
-
     return undefined;
   }
 
