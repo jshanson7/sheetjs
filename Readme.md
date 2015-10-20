@@ -1,4 +1,4 @@
-# SheetJS
+# SheetJS [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
 
 Easily create and manipulate `CSSStyleDeclarations` with javascript:
 
@@ -97,3 +97,8 @@ npm test
 ### License
 
 MIT
+
+[npm-image]: https://badge.fury.io/js/sheetjs.svg
+[npm-url]: https://npmjs.org/package/sheetjs
+[travis-image]: https://travis-ci.org/jshanson7/sheetjs.svg
+[travis-url]: https://travis-ci.org/jshanson7/sheetjs

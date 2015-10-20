@@ -3,7 +3,8 @@ import $ from 'jquery';
 import StyleSheet from '../../StyleSheet';
 
 window.sheetjs = { StyleSheet };
-const s = (new StyleSheet()).stylesForSelector;
+const styleSheet = new StyleSheet();
+const s = styleSheet.stylesForSelector;
 
 // state
 var demoElClass = 'demo-el';
@@ -17,10 +18,12 @@ var selectedLibrary = 'SheetJS';
 init();
 
 function init() {
-  s('html, body').margin = '0px';
-  s('.button-bank').margin = '20px'
-  s('.button-bank > *').margin = '0 14px 14px 0';
-  s('.demo-el-container').margin = '20px';
+  styleSheet.setStylesForSelectors({
+    'html, body': { margin: '0px' },
+    '.button-bank': { margin: '20px' },
+    '.button-bank > *': { margin: '0 14px 14px 0' },
+    '.demo-el-container': { margin: '20px' }
+  });
 
   updateDemoElStyles();
   $('body').html(renderDemo());
@@ -73,14 +76,15 @@ function updateSettings() {
 }
 
 function updateDemoElStyles() {
-  var demoElStyles = s('.' + demoElClass);
-  extend(demoElStyles, {
-    'float': 'left',
-    'margin': '2px',
-    'border': '1px solid black',
-    'height': '10px',
-    'width': '10px',
-    'backgroundColor': isToggled ? toggleColor2 : toggleColor1,
+  styleSheet.setStylesForSelectors({
+    ['.' + demoElClass]: {
+      'float': 'left',
+      'margin': '2px',
+      'border': '1px solid black',
+      'height': '10px',
+      'width': '10px',
+      'backgroundColor': isToggled ? toggleColor2 : toggleColor1,
+    }
   });
 }
 

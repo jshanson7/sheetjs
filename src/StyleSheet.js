@@ -1,43 +1,21 @@
-//  // CSSStyleSheet:
-//  {
-//    // CSSRuleList
-//    rules: [
-//      // CSSStyleRule:
-//      {
-//        // CSSStyleDeclaration:
-//        style: {
-//          backgroundColor: 'red'
-//        }
-//      }
-//    ]
-//  }
+import bindAll from './utils/bindAll';
 
 let instanceCount = 0;
 
 export default class StyleSheet {
+  _instance = ++instanceCount
+  _element = null
+  _sheet = null
+  _rules = null
+  _deleteRule = null
+
   constructor(stylesBySelector) {
-    // bind context of public methods
-    const self = this;
-    [
-      'setStylesForSelectors',
-      'setStylesForSelector',
-      'stylesForSelector',
-      'createStylesForSelector',
-      'getStylesForSelector',
-      'deleteStylesForSelector',
-      'disable',
-      'enable'
-    ].forEach(method => self[method] = self[method].bind(self));
+    bindAll(this);
 
     if (stylesBySelector) {
       this.setStylesForSelectors(stylesBySelector);
     }
   }
-
-  _instance = instanceCount++
-  _styleSheet = null
-  _sheet = null
-  _rules = null
 
   setStylesForSelectors(stylesBySelector) {
     Object.keys(stylesBySelector).forEach(selector =>
@@ -75,13 +53,12 @@ export default class StyleSheet {
   }
 
   deleteStylesForSelector(selector) {
-    const sheet = this._getSheet();
-    const deleteRule = sheet.removeRule || sheet.deleteRule;
+    const deleteRule = this._getDeleteRule();
     const ruleIndex = this._getRuleIndex(selector);
 
     return ruleIndex === -1 ?
       false :
-      deleteRule.call(sheet, ruleIndex);
+      deleteRule(ruleIndex);
   }
 
   disable() {
@@ -92,6 +69,13 @@ export default class StyleSheet {
   enable() {
     this._getSheet().disabled = false;
     return this;
+  }
+
+  _getDeleteRule() {
+    return this._deleteRule || (function () {
+      const sheet = this._getSheet();
+      return this._deleteRule = (sheet.removeRule || sheet.deleteRule).bind(sheet);
+    }).call(this);
   }
 
   _getRuleIndex(selector) {
@@ -115,12 +99,6 @@ export default class StyleSheet {
     return undefined;
   }
 
-  _getSheet() {
-    return this._sheet || (function () {
-      return this._sheet = this._getStylesForSelectorsheet().sheet;
-    }).call(this);
-  }
-
   _getRules() {
     return this._rules || (function () {
       const sheet = this._getSheet();
@@ -128,14 +106,37 @@ export default class StyleSheet {
     }).call(this);
   }
 
-  _getStylesForSelectorsheet() {
-    return this._styleSheet || (function () {
-      const style = document.createElement('style');
+  _getSheet() {
+    return this._sheet || (function () {
+      return this._sheet = this._getElement().sheet;
+    }).call(this);
+  }
+
+  _getElement() {
+    return this._element || (function () {
+      const styleSheet = document.createElement('style');
       const head = document.head || document.getElementsByTagName('head')[0];
-      style.type = 'text/css';
-      style.setAttribute('id', 'sheetjs-' + this._instance);
-      (head).appendChild(style);
-      return this._styleSheet = style;
+      styleSheet.type = 'text/css';
+      styleSheet.setAttribute('id', 'sheetjs-' + this._instance);
+      (head).appendChild(styleSheet);
+      return this._element = styleSheet;
     }).call(this);
   }
 }
+
+//  'style' dom element property reference
+//  {
+//    // CSSStyleSheet
+//    sheet: {
+//      // CSSRuleList
+//      rules: [
+//        // CSSStyleRule
+//        {
+//          // CSSStyleDeclaration
+//          style: {
+//            backgroundColor: 'red'
+//          }
+//        }
+//      ]
+//    }
+//  }

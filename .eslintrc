@@ -16,6 +16,8 @@ globals:
   before: false
   beforeEach: false
   exports: false
+  mocha: true
+  setup: true
 
 ecmaFeatures:
   jsx: true

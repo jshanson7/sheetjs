@@ -46,20 +46,23 @@
 
 	'use strict';
 
-	var _interopRequireDefault = __webpack_require__(1)['default'];
+	var _defineProperty = __webpack_require__(1)['default'];
 
-	var _lodash = __webpack_require__(2);
+	var _interopRequireDefault = __webpack_require__(5)['default'];
 
-	var _jquery = __webpack_require__(4);
+	var _lodash = __webpack_require__(6);
+
+	var _jquery = __webpack_require__(8);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _StyleSheet = __webpack_require__(8);
+	var _StyleSheet = __webpack_require__(11);
 
 	var _StyleSheet2 = _interopRequireDefault(_StyleSheet);
 
 	window.sheetjs = { StyleSheet: _StyleSheet2['default'] };
-	var s = new _StyleSheet2['default']().stylesForSelector;
+	var styleSheet = new _StyleSheet2['default']();
+	var s = styleSheet.stylesForSelector;
 
 	// state
 	var demoElClass = 'demo-el';
@@ -73,10 +76,12 @@
 	init();
 
 	function init() {
-	  s('html, body').margin = '0px';
-	  s('.button-bank').margin = '20px';
-	  s('.button-bank > *').margin = '0 14px 14px 0';
-	  s('.demo-el-container').margin = '20px';
+	  styleSheet.setStylesForSelectors({
+	    'html, body': { margin: '0px' },
+	    '.button-bank': { margin: '20px' },
+	    '.button-bank > *': { margin: '0 14px 14px 0' },
+	    '.demo-el-container': { margin: '20px' }
+	  });
 
 	  updateDemoElStyles();
 	  (0, _jquery2['default'])('body').html(renderDemo());
@@ -125,15 +130,14 @@
 	}
 
 	function updateDemoElStyles() {
-	  var demoElStyles = s('.' + demoElClass);
-	  (0, _lodash.extend)(demoElStyles, {
+	  styleSheet.setStylesForSelectors(_defineProperty({}, '.' + demoElClass, {
 	    'float': 'left',
 	    'margin': '2px',
 	    'border': '1px solid black',
 	    'height': '10px',
 	    'width': '10px',
 	    'backgroundColor': isToggled ? toggleColor2 : toggleColor1
-	  });
+	  }));
 	}
 
 	function updateDemoEls() {
@@ -216,6 +220,70 @@
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _Object$defineProperty = __webpack_require__(2)["default"];
+
+	exports["default"] = function (obj, key, value) {
+	  if (key in obj) {
+	    _Object$defineProperty(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+
+	  return obj;
+	};
+
+	exports.__esModule = true;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = { "default": __webpack_require__(3), __esModule: true };
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(4);
+	module.exports = function defineProperty(it, key, desc) {
+	  return $.setDesc(it, key, desc);
+	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var $Object = Object;
+	module.exports = {
+	  create: $Object.create,
+	  getProto: $Object.getPrototypeOf,
+	  isEnum: ({}).propertyIsEnumerable,
+	  getDesc: $Object.getOwnPropertyDescriptor,
+	  setDesc: $Object.defineProperty,
+	  setDescs: $Object.defineProperties,
+	  getKeys: $Object.keys,
+	  getNames: $Object.getOwnPropertyNames,
+	  getSymbols: $Object.getOwnPropertySymbols,
+	  each: [].forEach
+	};
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -229,7 +297,7 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 2 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -7065,10 +7133,10 @@
 	if(moduleExports){(freeModule.exports = _)._ = _;} // Export for Rhino with CommonJS support.
 	else {freeExports._ = _;}}else { // Export for a browser or Rhino.
 	root._ = _;}}).call(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module), (function() { return this; }())))
 
 /***/ },
-/* 3 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7085,7 +7153,7 @@
 	};
 
 /***/ },
-/* 4 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -7100,7 +7168,7 @@
 	 * http://jquery.org/license
 	 *
 	 * Date: 2015-04-28T16:01Z
-	 */"use strict";var _Object$defineProperties=__webpack_require__(5)["default"];(function(global,factory){if(typeof module === "object" && typeof module.exports === "object"){ // For CommonJS and CommonJS-like environments where a proper `window`
+	 */"use strict";var _Object$defineProperties=__webpack_require__(9)["default"];(function(global,factory){if(typeof module === "object" && typeof module.exports === "object"){ // For CommonJS and CommonJS-like environments where a proper `window`
 	// is present, execute the factory and get jQuery.
 	// For environments that do not have a `window` with a `document`
 	// (such as Node.js), expose a factory as module.exports.
@@ -8544,54 +8612,34 @@
 	if(typeof noGlobal === strundefined){window.jQuery = window.$ = jQuery;}return jQuery;}); // Otherwise append directly
 
 /***/ },
-/* 5 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = { "default": __webpack_require__(6), __esModule: true };
+	module.exports = { "default": __webpack_require__(10), __esModule: true };
 
 /***/ },
-/* 6 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(4);
 	module.exports = function defineProperties(T, D) {
 	  return $.setDescs(T, D);
 	};
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var $Object = Object;
-	module.exports = {
-	  create: $Object.create,
-	  getProto: $Object.getPrototypeOf,
-	  isEnum: ({}).propertyIsEnumerable,
-	  getDesc: $Object.getOwnPropertyDescriptor,
-	  setDesc: $Object.defineProperty,
-	  setDescs: $Object.defineProperties,
-	  getKeys: $Object.keys,
-	  getNames: $Object.getOwnPropertyNames,
-	  getSymbols: $Object.getOwnPropertySymbols,
-	  each: [].forEach
-	};
-
-/***/ },
-/* 8 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(9);
+	module.exports = __webpack_require__(12);
 
 /***/ },
-/* 9 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8654,20 +8702,6 @@
 			/* 1 */
 			function (module, exports, __webpack_require__) {
 
-				//  // CSSStyleSheet:
-				//  {
-				//    // CSSRuleList
-				//    rules: [
-				//      // CSSStyleRule:
-				//      {
-				//        // CSSStyleDeclaration:
-				//        style: {
-				//          backgroundColor: 'red'
-				//        }
-				//      }
-				//    ]
-				//  }
-
 				'use strict';
 
 				var _createClass = __webpack_require__(2)['default'];
@@ -8678,30 +8712,51 @@
 
 				var _Object$assign = __webpack_require__(17)['default'];
 
+				var _interopRequireDefault = __webpack_require__(46)['default'];
+
 				Object.defineProperty(exports, '__esModule', {
 					value: true
 				});
+
+				var _utilsBindAll = __webpack_require__(47);
+
+				var _utilsBindAll2 = _interopRequireDefault(_utilsBindAll);
+
 				var instanceCount = 0;
 
 				var StyleSheet = (function () {
 					function StyleSheet(stylesBySelector) {
 						_classCallCheck(this, StyleSheet);
 
-						this._instance = instanceCount++;
-						this._styleSheet = null;
+						this._instance = ++instanceCount;
+						this._element = null;
 						this._sheet = null;
 						this._rules = null;
+						this._deleteRule = null;
 
-						// bind context of public methods
-						var self = this;
-						['setStylesForSelectors', 'setStylesForSelector', 'stylesForSelector', 'createStylesForSelector', 'getStylesForSelector', 'deleteStylesForSelector', 'disable', 'enable'].forEach(function (method) {
-							return self[method] = self[method].bind(self);
-						});
+						(0, _utilsBindAll2['default'])(this);
 
 						if (stylesBySelector) {
 							this.setStylesForSelectors(stylesBySelector);
 						}
 					}
+
+					//  'style' dom element property reference
+					//  {
+					//    // CSSStyleSheet
+					//    sheet: {
+					//      // CSSRuleList
+					//      rules: [
+					//        // CSSStyleRule
+					//        {
+					//          // CSSStyleDeclaration
+					//          style: {
+					//            backgroundColor: 'red'
+					//          }
+					//        }
+					//      ]
+					//    }
+					//  }
 
 					_createClass(StyleSheet, [{
 						key: 'setStylesForSelectors',
@@ -8748,11 +8803,10 @@
 					}, {
 						key: 'deleteStylesForSelector',
 						value: function deleteStylesForSelector(selector) {
-							var sheet = this._getSheet();
-							var deleteRule = sheet.removeRule || sheet.deleteRule;
+							var deleteRule = this._getDeleteRule();
 							var ruleIndex = this._getRuleIndex(selector);
 
-							return ruleIndex === -1 ? false : deleteRule.call(sheet, ruleIndex);
+							return ruleIndex === -1 ? false : deleteRule(ruleIndex);
 						}
 					}, {
 						key: 'disable',
@@ -8765,6 +8819,14 @@
 						value: function enable() {
 							this._getSheet().disabled = false;
 							return this;
+						}
+					}, {
+						key: '_getDeleteRule',
+						value: function _getDeleteRule() {
+							return this._deleteRule || (function () {
+								var sheet = this._getSheet();
+								return this._deleteRule = (sheet.removeRule || sheet.deleteRule).bind(sheet);
+							}).call(this);
 						}
 					}, {
 						key: '_getRuleIndex',
@@ -8790,13 +8852,6 @@
 							return undefined;
 						}
 					}, {
-						key: '_getSheet',
-						value: function _getSheet() {
-							return this._sheet || (function () {
-								return this._sheet = this._getStylesForSelectorsheet().sheet;
-							}).call(this);
-						}
-					}, {
 						key: '_getRules',
 						value: function _getRules() {
 							return this._rules || (function () {
@@ -8805,15 +8860,22 @@
 							}).call(this);
 						}
 					}, {
-						key: '_getStylesForSelectorsheet',
-						value: function _getStylesForSelectorsheet() {
-							return this._styleSheet || (function () {
-								var style = document.createElement('style');
+						key: '_getSheet',
+						value: function _getSheet() {
+							return this._sheet || (function () {
+								return this._sheet = this._getElement().sheet;
+							}).call(this);
+						}
+					}, {
+						key: '_getElement',
+						value: function _getElement() {
+							return this._element || (function () {
+								var styleSheet = document.createElement('style');
 								var head = document.head || document.getElementsByTagName('head')[0];
-								style.type = 'text/css';
-								style.setAttribute('id', 'sheetjs-' + this._instance);
-								head.appendChild(style);
-								return this._styleSheet = style;
+								styleSheet.type = 'text/css';
+								styleSheet.setAttribute('id', 'sheetjs-' + this._instance);
+								head.appendChild(styleSheet);
+								return this._element = styleSheet;
 							}).call(this);
 						}
 					}]);
@@ -9727,12 +9789,75 @@
 				module.exports = true;
 
 				/***/
+			},
+			/* 46 */
+			function (module, exports) {
+
+				"use strict";
+
+				exports["default"] = function (obj) {
+					return obj && obj.__esModule ? obj : {
+						"default": obj
+					};
+				};
+
+				exports.__esModule = true;
+
+				/***/
+			},
+			/* 47 */
+			function (module, exports, __webpack_require__) {
+
+				'use strict';
+
+				var _Object$getOwnPropertyNames = __webpack_require__(38)['default'];
+
+				var _interopRequireDefault = __webpack_require__(46)['default'];
+
+				Object.defineProperty(exports, '__esModule', {
+					value: true
+				});
+				exports['default'] = bindAll;
+
+				var _isFunction = __webpack_require__(48);
+
+				var _isFunction2 = _interopRequireDefault(_isFunction);
+
+				function bindAll(obj) {
+					_Object$getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(function (key) {
+						return (0, _isFunction2['default'])(obj[key]);
+					}).forEach(function (method) {
+						return obj[method] = obj[method].bind(obj);
+					});
+				}
+
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 48 */
+			function (module, exports) {
+
+				"use strict";
+
+				Object.defineProperty(exports, "__esModule", {
+					value: true
+				});
+				exports["default"] = isFunction;
+
+				function isFunction(obj) {
+					return !!(obj && obj.constructor && obj.call && obj.apply);
+				}
+
+				module.exports = exports["default"];
+
+				/***/
 			}
 			/******/])
 		);
 	});
 	;
-	/***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/
+	/***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/
 
 /***/ }
 /******/ ]);

@@ -61,20 +61,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	//  // CSSStyleSheet:
-	//  {
-	//    // CSSRuleList
-	//    rules: [
-	//      // CSSStyleRule:
-	//      {
-	//        // CSSStyleDeclaration:
-	//        style: {
-	//          backgroundColor: 'red'
-	//        }
-	//      }
-	//    ]
-	//  }
-
 	'use strict';
 
 	var _createClass = __webpack_require__(2)['default'];
@@ -85,30 +71,51 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Object$assign = __webpack_require__(17)['default'];
 
+	var _interopRequireDefault = __webpack_require__(46)['default'];
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+
+	var _utilsBindAll = __webpack_require__(47);
+
+	var _utilsBindAll2 = _interopRequireDefault(_utilsBindAll);
+
 	var instanceCount = 0;
 
 	var StyleSheet = (function () {
 	  function StyleSheet(stylesBySelector) {
 	    _classCallCheck(this, StyleSheet);
 
-	    this._instance = instanceCount++;
-	    this._styleSheet = null;
+	    this._instance = ++instanceCount;
+	    this._element = null;
 	    this._sheet = null;
 	    this._rules = null;
+	    this._deleteRule = null;
 
-	    // bind context of public methods
-	    var self = this;
-	    ['setStylesForSelectors', 'setStylesForSelector', 'stylesForSelector', 'createStylesForSelector', 'getStylesForSelector', 'deleteStylesForSelector', 'disable', 'enable'].forEach(function (method) {
-	      return self[method] = self[method].bind(self);
-	    });
+	    (0, _utilsBindAll2['default'])(this);
 
 	    if (stylesBySelector) {
 	      this.setStylesForSelectors(stylesBySelector);
 	    }
 	  }
+
+	  //  'style' dom element property reference
+	  //  {
+	  //    // CSSStyleSheet
+	  //    sheet: {
+	  //      // CSSRuleList
+	  //      rules: [
+	  //        // CSSStyleRule
+	  //        {
+	  //          // CSSStyleDeclaration
+	  //          style: {
+	  //            backgroundColor: 'red'
+	  //          }
+	  //        }
+	  //      ]
+	  //    }
+	  //  }
 
 	  _createClass(StyleSheet, [{
 	    key: 'setStylesForSelectors',
@@ -155,11 +162,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'deleteStylesForSelector',
 	    value: function deleteStylesForSelector(selector) {
-	      var sheet = this._getSheet();
-	      var deleteRule = sheet.removeRule || sheet.deleteRule;
+	      var deleteRule = this._getDeleteRule();
 	      var ruleIndex = this._getRuleIndex(selector);
 
-	      return ruleIndex === -1 ? false : deleteRule.call(sheet, ruleIndex);
+	      return ruleIndex === -1 ? false : deleteRule(ruleIndex);
 	    }
 	  }, {
 	    key: 'disable',
@@ -172,6 +178,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function enable() {
 	      this._getSheet().disabled = false;
 	      return this;
+	    }
+	  }, {
+	    key: '_getDeleteRule',
+	    value: function _getDeleteRule() {
+	      return this._deleteRule || (function () {
+	        var sheet = this._getSheet();
+	        return this._deleteRule = (sheet.removeRule || sheet.deleteRule).bind(sheet);
+	      }).call(this);
 	    }
 	  }, {
 	    key: '_getRuleIndex',
@@ -197,13 +211,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return undefined;
 	    }
 	  }, {
-	    key: '_getSheet',
-	    value: function _getSheet() {
-	      return this._sheet || (function () {
-	        return this._sheet = this._getStylesForSelectorsheet().sheet;
-	      }).call(this);
-	    }
-	  }, {
 	    key: '_getRules',
 	    value: function _getRules() {
 	      return this._rules || (function () {
@@ -212,15 +219,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).call(this);
 	    }
 	  }, {
-	    key: '_getStylesForSelectorsheet',
-	    value: function _getStylesForSelectorsheet() {
-	      return this._styleSheet || (function () {
-	        var style = document.createElement('style');
+	    key: '_getSheet',
+	    value: function _getSheet() {
+	      return this._sheet || (function () {
+	        return this._sheet = this._getElement().sheet;
+	      }).call(this);
+	    }
+	  }, {
+	    key: '_getElement',
+	    value: function _getElement() {
+	      return this._element || (function () {
+	        var styleSheet = document.createElement('style');
 	        var head = document.head || document.getElementsByTagName('head')[0];
-	        style.type = 'text/css';
-	        style.setAttribute('id', 'sheetjs-' + this._instance);
-	        head.appendChild(style);
-	        return this._styleSheet = style;
+	        styleSheet.type = 'text/css';
+	        styleSheet.setAttribute('id', 'sheetjs-' + this._instance);
+	        head.appendChild(styleSheet);
+	        return this._element = styleSheet;
 	      }).call(this);
 	    }
 	  }]);
@@ -1088,6 +1102,66 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	module.exports = true;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports["default"] = function (obj) {
+	  return obj && obj.__esModule ? obj : {
+	    "default": obj
+	  };
+	};
+
+	exports.__esModule = true;
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Object$getOwnPropertyNames = __webpack_require__(38)['default'];
+
+	var _interopRequireDefault = __webpack_require__(46)['default'];
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = bindAll;
+
+	var _isFunction = __webpack_require__(48);
+
+	var _isFunction2 = _interopRequireDefault(_isFunction);
+
+	function bindAll(obj) {
+	  _Object$getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(function (key) {
+	    return (0, _isFunction2['default'])(obj[key]);
+	  }).forEach(function (method) {
+	    return obj[method] = obj[method].bind(obj);
+	  });
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = isFunction;
+
+	function isFunction(obj) {
+	  return !!(obj && obj.constructor && obj.call && obj.apply);
+	}
+
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ])
