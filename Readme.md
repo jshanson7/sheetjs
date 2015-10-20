@@ -36,7 +36,7 @@ s('.my-el').backgroundColor = 'green';
 
 ## Demo
 
-[http://codepen.io/jshanson7/pen/Jdpdga?editors=001](http://codepen.io/jshanson7/pen/Jdpdga?editors=001)
+[https://rawgit.com/jshanson7/sheetjs/master/demo/index.html](https://rawgit.com/jshanson7/sheetjs/master/demo/index.html)
 
 ## Installation
 
@@ -107,6 +107,8 @@ npm run build
 ```
 
 ### Testing
+
+[Run the tests on your browser here.](https://rawgit.com/jshanson7/sheetjs/master/test/test.html)
 
 ```
 npm test
