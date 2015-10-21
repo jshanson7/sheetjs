@@ -31,11 +31,13 @@ export default class StyleSheet {
 
   // returns a CSSStyleDeclaration
   stylesForSelector(selector) {
-    return this.getStylesForSelector(selector) ||
-      this.createStylesForSelector(selector);
+    return this.createStylesForSelector(selector);
   }
 
   createStylesForSelector(selector) {
+    const existing = this.getStylesForSelector(selector);
+    if (existing) { return existing; }
+
     const sheet = this._getSheet();
     const rules = this._getRules();
     const nextRuleIndex = rules.length;
@@ -54,11 +56,10 @@ export default class StyleSheet {
 
   deleteStylesForSelector(selector) {
     const deleteRule = this._getDeleteRule();
-    const ruleIndex = this._getRuleIndexForSelector(selector);
-
-    return ruleIndex === -1 ?
-      false :
+    let ruleIndex;
+    while ((ruleIndex = this._getRuleIndexForSelector(selector)) !== -1) {
       deleteRule(ruleIndex);
+    }
   }
 
   disable() {
@@ -88,9 +89,14 @@ export default class StyleSheet {
   _getRuleForSelector(selector) {
     const rules = this._getRules();
     let i = rules.length;
+    let ruleSelectorText;
 
     while (i--) {
-      if (rules[i].selectorText === selector) {
+      ruleSelectorText = rules[i].selectorText;
+      if (
+        selector === ruleSelectorText ||
+        selector.trim().replace(/, /g, ',') === ruleSelectorText.replace(/, /g, ',')
+      ) {
         return rules[i];
       }
     }

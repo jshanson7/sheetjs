@@ -8779,11 +8779,16 @@
 					}, {
 						key: 'stylesForSelector',
 						value: function stylesForSelector(selector) {
-							return this.getStylesForSelector(selector) || this.createStylesForSelector(selector);
+							return this.createStylesForSelector(selector);
 						}
 					}, {
 						key: 'createStylesForSelector',
 						value: function createStylesForSelector(selector) {
+							var existing = this.getStylesForSelector(selector);
+							if (existing) {
+								return existing;
+							}
+
 							var sheet = this._getSheet();
 							var rules = this._getRules();
 							var nextRuleIndex = rules.length;
@@ -8804,9 +8809,10 @@
 						key: 'deleteStylesForSelector',
 						value: function deleteStylesForSelector(selector) {
 							var deleteRule = this._getDeleteRule();
-							var ruleIndex = this._getRuleIndexForSelector(selector);
-
-							return ruleIndex === -1 ? false : deleteRule(ruleIndex);
+							var ruleIndex = undefined;
+							while ((ruleIndex = this._getRuleIndexForSelector(selector)) !== -1) {
+								deleteRule(ruleIndex);
+							}
 						}
 					}, {
 						key: 'disable',
@@ -8838,9 +8844,11 @@
 						value: function _getRuleForSelector(selector) {
 							var rules = this._getRules();
 							var i = rules.length;
+							var ruleSelectorText = undefined;
 
 							while (i--) {
-								if (rules[i].selectorText === selector) {
+								ruleSelectorText = rules[i].selectorText;
+								if (selector === ruleSelectorText || selector.trim().replace(/, /g, ',') === ruleSelectorText.replace(/, /g, ',')) {
 									return rules[i];
 								}
 							}
