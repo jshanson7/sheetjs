@@ -1,4 +1,5 @@
 import bindAll from './utils/bindAll';
+import selectorsEquivalent from './utils/selectorsEquivalent';
 
 let instanceCount = 0;
 
@@ -7,7 +8,7 @@ export default class StyleSheet {
   _element = null
   _sheet = null
   _rules = null
-  _deleteRule = null
+  _deleteRuleAtIndex = null
 
   constructor(stylesBySelector) {
     bindAll(this);
@@ -15,6 +16,11 @@ export default class StyleSheet {
     if (stylesBySelector) {
       this.setStylesForSelectors(stylesBySelector);
     }
+  }
+
+  // alias to createStylesForSelector
+  stylesForSelector(selector) {
+    return this.createStylesForSelector(selector);
   }
 
   setStylesForSelectors(stylesBySelector) {
@@ -30,10 +36,6 @@ export default class StyleSheet {
   }
 
   // returns a CSSStyleDeclaration
-  stylesForSelector(selector) {
-    return this.createStylesForSelector(selector);
-  }
-
   createStylesForSelector(selector) {
     const existing = this.getStylesForSelector(selector);
     if (existing) { return existing; }
@@ -55,10 +57,18 @@ export default class StyleSheet {
   }
 
   deleteStylesForSelector(selector) {
-    const deleteRule = this._getDeleteRule();
+    const deleteRuleAtIndex = this._getDeleteRuleAtIndex();
     let ruleIndex;
     while ((ruleIndex = this._getRuleIndexForSelector(selector)) !== -1) {
-      deleteRule(ruleIndex);
+      deleteRuleAtIndex(ruleIndex);
+    }
+  }
+
+  deleteStyles() {
+    const deleteRuleAtIndex = this._getDeleteRuleAtIndex();
+    let ruleIndex = this._getRules().length;
+    while (ruleIndex--) {
+      deleteRuleAtIndex(ruleIndex);
     }
   }
 
@@ -72,10 +82,10 @@ export default class StyleSheet {
     return this;
   }
 
-  _getDeleteRule() {
-    return this._deleteRule || (function () {
+  _getDeleteRuleAtIndex() {
+    return this._deleteRuleAtIndex || (function () {
       const sheet = this._getSheet();
-      return this._deleteRule = (sheet.removeRule || sheet.deleteRule).bind(sheet);
+      return this._deleteRuleAtIndex = (sheet.removeRule || sheet.deleteRule).bind(sheet);
     }).call(this);
   }
 
@@ -89,15 +99,12 @@ export default class StyleSheet {
   _getRuleForSelector(selector) {
     const rules = this._getRules();
     let i = rules.length;
-    let ruleSelectorText;
+    let rule;
 
     while (i--) {
-      ruleSelectorText = rules[i].selectorText;
-      if (
-        selector === ruleSelectorText ||
-        selector.trim().replace(/, /g, ',') === ruleSelectorText.replace(/, /g, ',')
-      ) {
-        return rules[i];
+      rule = rules[i];
+      if (selectorsEquivalent(selector, rule.selectorText)) {
+        return rule;
       }
     }
     return undefined;

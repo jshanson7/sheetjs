@@ -4,7 +4,7 @@ module.exports = {
   entry: path.join(__dirname, './demo/src/index'),
   output: {
     path: path.join(__dirname, '/demo/dist'),
-    filename: 'index.js'
+    filename: 'index.compiled.js'
   },
   stats: { colors: true },
   module: {

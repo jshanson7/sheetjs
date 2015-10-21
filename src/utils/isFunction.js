@@ -1,3 +1,2 @@
-export default function isFunction(obj) {
-  return !!(obj && obj.constructor && obj.call && obj.apply);
-}
+export default obj =>
+  !!(obj && obj.constructor && obj.call && obj.apply);

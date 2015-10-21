@@ -1,7 +1,7 @@
 {
   "name": "sheetjs",
   "description": "Easily create and manipulate CSSStyleDeclarations with javascript.",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "keywords": [
     "CSSStyleDeclaration",
     "css",
@@ -51,7 +51,7 @@
     "webpack-demo": "npm run webpack -- --config webpack.demo.config.js",
     "webpack-demo-watch": "npm run webpack-demo -- --watch",
     "uglify": "node_modules/.bin/uglifyjs dist/sheetjs.js -c -m -o dist/sheetjs.min.js && node_modules/.bin/uglifyjs dist/StyleSheet.js -c -m -o dist/StyleSheet.min.js",
-    "lint": "node_modules/.bin/eslint src test --ignore-pattern ./**/*/*.{compiled,min}.js --quiet",
+    "lint": "node_modules/.bin/eslint --quiet .",
     "lint-watch": "node_modules/.bin/watch 'npm run lint' test src"
   },
   "author": "Jeff Hanson",

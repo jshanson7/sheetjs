@@ -1,40 +1,38 @@
-import { extend, map, range, times } from 'lodash';
+import { map, range, times } from 'lodash';
 import $ from 'jquery';
 import StyleSheet from '../../StyleSheet';
 
 window.sheetjs = { StyleSheet };
-const styleSheet = new StyleSheet();
+const styleSheet = new StyleSheet({
+  'html, body': { margin: '0px' },
+  '.button-bank': { margin: '20px' },
+  '.button-bank > *': { margin: '0 14px 14px 0' },
+  '.demo-el-container': { margin: '20px' }
+});
 const s = styleSheet.stylesForSelector;
 
 // state
-var demoElClass = 'demo-el';
-var isToggled = false;
-var numberOfEls = 1000;
-var toggleColor1 = '#EFEFEF';
-var toggleColor2 = 'lightGreen';
-var numberOfTimesToToggle = 101;
-var selectedLibrary = 'SheetJS';
+let demoElClass = 'demo-el';
+let isToggled = false;
+let numberOfEls = 1000;
+let toggleColor1 = '#EFEFEF';
+let toggleColor2 = 'lightGreen';
+let numberOfTimesToToggle = 101;
+let selectedLibrary = 'SheetJS';
 
 init();
 
 function init() {
-  styleSheet.setStylesForSelectors({
-    'html, body': { margin: '0px' },
-    '.button-bank': { margin: '20px' },
-    '.button-bank > *': { margin: '0 14px 14px 0' },
-    '.demo-el-container': { margin: '20px' }
-  });
-
   updateDemoElStyles();
   $('body').html(renderDemo());
   $('input, select').on('keyup change', inputChanged);
 }
 
 function toggleElements() {
-  var $toggleStatus = $('.toggle-status').empty();
-  var timestamp = Date.now();
-  var toggler = selectedLibrary === 'SheetJS' ? toggleWithSheetjs : toggleWithJquery;
-  
+  const $toggleStatus = $('.toggle-status').empty();
+  const timestamp = Date.now();
+  const toggler = selectedLibrary === 'SheetJS' ? toggleWithSheetjs : toggleWithJquery;
+
   times(numberOfTimesToToggle, toggler);
   $toggleStatus.html(
     '<span>' + numberOfTimesToToggle + ' toggles with <em>' +
@@ -67,7 +65,7 @@ function updateSettings() {
   numberOfTimesToToggle = parseInt( $('.toggle-count').val() );
   selectedLibrary = $('.library-select').val();
   s('.' + demoElClass).backgroundColor = toggleColor1;
-  
+
   $('.update-settings').attr('disabled', true);
   $('.toggle-elements').attr('disabled', false);
   $('.toggle-status').html('');
@@ -78,12 +76,12 @@ function updateSettings() {
 function updateDemoElStyles() {
   styleSheet.setStylesForSelectors({
     ['.' + demoElClass]: {
-      'float': 'left',
-      'margin': '2px',
-      'border': '1px solid black',
-      'height': '10px',
-      'width': '10px',
-      'backgroundColor': isToggled ? toggleColor2 : toggleColor1,
+      float: 'left',
+      margin: '2px',
+      border: '1px solid black',
+      height: '10px',
+      width: '10px',
+      backgroundColor: isToggled ? toggleColor2 : toggleColor1,
     }
   });
 }
@@ -95,8 +93,8 @@ function updateDemoEls() {
 }
 
 function renderDemoEls() {
-  return map(range(numberOfEls), function (i) {
-    return $('<div/>', { 
+  return map(range(numberOfEls), function () {
+    return $('<div/>', {
       class: demoElClass
     });
   });

@@ -61,7 +61,12 @@
 	var _StyleSheet2 = _interopRequireDefault(_StyleSheet);
 
 	window.sheetjs = { StyleSheet: _StyleSheet2['default'] };
-	var styleSheet = new _StyleSheet2['default']();
+	var styleSheet = new _StyleSheet2['default']({
+	  'html, body': { margin: '0px' },
+	  '.button-bank': { margin: '20px' },
+	  '.button-bank > *': { margin: '0 14px 14px 0' },
+	  '.demo-el-container': { margin: '20px' }
+	});
 	var s = styleSheet.stylesForSelector;
 
 	// state
@@ -76,13 +81,6 @@
 	init();
 
 	function init() {
-	  styleSheet.setStylesForSelectors({
-	    'html, body': { margin: '0px' },
-	    '.button-bank': { margin: '20px' },
-	    '.button-bank > *': { margin: '0 14px 14px 0' },
-	    '.demo-el-container': { margin: '20px' }
-	  });
-
 	  updateDemoElStyles();
 	  (0, _jquery2['default'])('body').html(renderDemo());
 	  (0, _jquery2['default'])('input, select').on('keyup change', inputChanged);
@@ -131,12 +129,12 @@
 
 	function updateDemoElStyles() {
 	  styleSheet.setStylesForSelectors(_defineProperty({}, '.' + demoElClass, {
-	    'float': 'left',
-	    'margin': '2px',
-	    'border': '1px solid black',
-	    'height': '10px',
-	    'width': '10px',
-	    'backgroundColor': isToggled ? toggleColor2 : toggleColor1
+	    float: 'left',
+	    margin: '2px',
+	    border: '1px solid black',
+	    height: '10px',
+	    width: '10px',
+	    backgroundColor: isToggled ? toggleColor2 : toggleColor1
 	  }));
 	}
 
@@ -145,7 +143,7 @@
 	}
 
 	function renderDemoEls() {
-	  return (0, _lodash.map)((0, _lodash.range)(numberOfEls), function (i) {
+	  return (0, _lodash.map)((0, _lodash.range)(numberOfEls), function () {
 	    return (0, _jquery2['default'])('<div/>', {
 	      'class': demoElClass
 	    });
@@ -8722,6 +8720,10 @@
 
 				var _utilsBindAll2 = _interopRequireDefault(_utilsBindAll);
 
+				var _utilsSelectorsEquivalent = __webpack_require__(49);
+
+				var _utilsSelectorsEquivalent2 = _interopRequireDefault(_utilsSelectorsEquivalent);
+
 				var instanceCount = 0;
 
 				var StyleSheet = (function () {
@@ -8732,7 +8734,7 @@
 						this._element = null;
 						this._sheet = null;
 						this._rules = null;
-						this._deleteRule = null;
+						this._deleteRuleAtIndex = null;
 
 						(0, _utilsBindAll2['default'])(this);
 
@@ -8758,7 +8760,14 @@
 					//    }
 					//  }
 
+					// alias to createStylesForSelector
+
 					_createClass(StyleSheet, [{
+						key: 'stylesForSelector',
+						value: function stylesForSelector(selector) {
+							return this.createStylesForSelector(selector);
+						}
+					}, {
 						key: 'setStylesForSelectors',
 						value: function setStylesForSelectors(stylesBySelector) {
 							var _this = this;
@@ -8776,11 +8785,6 @@
 						}
 
 						// returns a CSSStyleDeclaration
-					}, {
-						key: 'stylesForSelector',
-						value: function stylesForSelector(selector) {
-							return this.createStylesForSelector(selector);
-						}
 					}, {
 						key: 'createStylesForSelector',
 						value: function createStylesForSelector(selector) {
@@ -8808,10 +8812,19 @@
 					}, {
 						key: 'deleteStylesForSelector',
 						value: function deleteStylesForSelector(selector) {
-							var deleteRule = this._getDeleteRule();
+							var deleteRuleAtIndex = this._getDeleteRuleAtIndex();
 							var ruleIndex = undefined;
 							while ((ruleIndex = this._getRuleIndexForSelector(selector)) !== -1) {
-								deleteRule(ruleIndex);
+								deleteRuleAtIndex(ruleIndex);
+							}
+						}
+					}, {
+						key: 'deleteStyles',
+						value: function deleteStyles() {
+							var deleteRuleAtIndex = this._getDeleteRuleAtIndex();
+							var ruleIndex = this._getRules().length;
+							while (ruleIndex--) {
+								deleteRuleAtIndex(ruleIndex);
 							}
 						}
 					}, {
@@ -8827,11 +8840,11 @@
 							return this;
 						}
 					}, {
-						key: '_getDeleteRule',
-						value: function _getDeleteRule() {
-							return this._deleteRule || (function () {
+						key: '_getDeleteRuleAtIndex',
+						value: function _getDeleteRuleAtIndex() {
+							return this._deleteRuleAtIndex || (function () {
 								var sheet = this._getSheet();
-								return this._deleteRule = (sheet.removeRule || sheet.deleteRule).bind(sheet);
+								return this._deleteRuleAtIndex = (sheet.removeRule || sheet.deleteRule).bind(sheet);
 							}).call(this);
 						}
 					}, {
@@ -8844,12 +8857,12 @@
 						value: function _getRuleForSelector(selector) {
 							var rules = this._getRules();
 							var i = rules.length;
-							var ruleSelectorText = undefined;
+							var rule = undefined;
 
 							while (i--) {
-								ruleSelectorText = rules[i].selectorText;
-								if (selector === ruleSelectorText || selector.trim().replace(/, /g, ',') === ruleSelectorText.replace(/, /g, ',')) {
-									return rules[i];
+								rule = rules[i];
+								if ((0, _utilsSelectorsEquivalent2['default'])(selector, rule.selectorText)) {
+									return rule;
 								}
 							}
 							return undefined;
@@ -9820,19 +9833,18 @@
 				Object.defineProperty(exports, '__esModule', {
 					value: true
 				});
-				exports['default'] = bindAll;
 
 				var _isFunction = __webpack_require__(48);
 
 				var _isFunction2 = _interopRequireDefault(_isFunction);
 
-				function bindAll(obj) {
-					_Object$getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(function (key) {
+				exports['default'] = function (obj) {
+					return _Object$getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(function (key) {
 						return (0, _isFunction2['default'])(obj[key]);
 					}).forEach(function (method) {
 						return obj[method] = obj[method].bind(obj);
 					});
-				}
+				};
 
 				module.exports = exports['default'];
 
@@ -9846,13 +9858,52 @@
 				Object.defineProperty(exports, "__esModule", {
 					value: true
 				});
-				exports["default"] = isFunction;
 
-				function isFunction(obj) {
+				exports["default"] = function (obj) {
 					return !!(obj && obj.constructor && obj.call && obj.apply);
-				}
+				};
 
 				module.exports = exports["default"];
+
+				/***/
+			},
+			/* 49 */
+			function (module, exports, __webpack_require__) {
+
+				'use strict';
+
+				var _interopRequireDefault = __webpack_require__(46)['default'];
+
+				Object.defineProperty(exports, '__esModule', {
+					value: true
+				});
+
+				var _normalizeSelector = __webpack_require__(50);
+
+				var _normalizeSelector2 = _interopRequireDefault(_normalizeSelector);
+
+				exports['default'] = function (first, second) {
+					return (0, _normalizeSelector2['default'])(first) === (0, _normalizeSelector2['default'])(second);
+				};
+
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 50 */
+			function (module, exports) {
+
+				'use strict';
+
+				Object.defineProperty(exports, '__esModule', {
+					value: true
+				});
+
+				exports['default'] = function (selector) {
+					return selector.trim().replace(/ +(?= )/g, '').replace(/, /g, ',').replace(/ ,/g, ',');
+				};
+
+				module.exports = exports['default'];
 
 				/***/
 			}
@@ -9860,7 +9911,7 @@
 		);
 	});
 	;
-	/***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/
+	/***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/ /***/
 
 /***/ }
 /******/ ]);
